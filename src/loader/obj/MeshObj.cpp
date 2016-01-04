@@ -5,12 +5,12 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Fri Dec 25 16:18:33 2015 Matthew LEJEUNE
-// Last update Mon Jan  4 02:50:41 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 03:48:14 2016 Matthew LEJEUNE
 //
 
-#include "../../../include/sdlglutils.h"
-#include "../../../include/MeshObj.hpp"
-#include "../../../include/MeshObjGroup.hpp"
+#include "sdlglutils.h"
+#include "MeshObj.hpp"
+#include "MeshObjGroup.hpp"
 
 using namespace std;
 
@@ -49,7 +49,6 @@ int	nbOccur(const char *s, char c)
 
 string doubleSlash(string s)
 {
-  int	id = 0;
   string s1 = "";
   vector<string> split = splitSpace(s.substr(2));
 
@@ -148,7 +147,6 @@ MeshObj::~MeshObj()
 
 void MeshObj::charger_obj(string nom)
 {
-  int	id = 0;
   MeshObjGroup *group;
   ifstream fichier(nom.c_str(), ios::in);
   vector<FloatVector> ver,nor,tex,col;
@@ -235,7 +233,7 @@ void MeshObj::charger_obj(string nom)
             }
 	  else if(ligne[0]=='m')
 	    {
-	      charger_mtl(group, get_directory(nom)+ligne.substr(7));
+	      charger_mtl(get_directory(nom)+ligne.substr(7));
 	      printf("MTL loaded\n");
 	    }
 	  else if(ligne[0]=='u')
@@ -254,7 +252,7 @@ void MeshObj::charger_obj(string nom)
       fichier.close();
       groups.push_back(*group);
 
-      for (int index = 0; index < groups.size(); index++)
+      for (int index = 0; index < (int)groups.size(); index++)
 	{
 	  vector<float> tc(0), tv(0), tn(0), tt(0);
 	  for(unsigned int i = 0; i < groups[index].iv.size(); i++)
@@ -315,7 +313,7 @@ void MeshObj::charger_obj(string nom)
   col.clear();
 }
 
-void MeshObj::charger_mtl(MeshObjGroup *g, string nom)
+void MeshObj::charger_mtl(string nom)
 {
   ifstream fichier(nom.c_str(), ios::in);
   string curname="";
@@ -388,7 +386,7 @@ void MeshObj::draw_model(GLuint drawingMode)
   if(isNormal)
     glEnableClientState(GL_NORMAL_ARRAY);
   glEnableClientState(GL_COLOR_ARRAY);
-  for (int i = 0; i < groups.size(); i++)
+  for (int i = 0; i < (int)groups.size(); i++)
     {
       mater = GetMaterialByName(groups[i].mat);
       if (mater)

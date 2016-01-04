@@ -5,7 +5,7 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Fri Dec 25 17:21:31 2015 Matthew LEJEUNE
-// Last update Mon Jan  4 02:44:32 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 03:47:00 2016 Matthew LEJEUNE
 //
 
 #include <SDL/SDL.h>
@@ -13,8 +13,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GLFW/glfw3.h>
-#include "../include/MeshObj.hpp"
-#include "../include/Loader.hpp"
+#include "MeshObj.hpp"
+#include "Loader.hpp"
 
 
 int main(int argc,char *argv[])
@@ -23,6 +23,8 @@ int main(int argc,char *argv[])
   bool continuer=true;
   GLuint drawingMode = GL_QUADS;
 
+  if (argc < 2)
+    return (-1);
   SDL_Init(SDL_INIT_VIDEO);
 
   SDL_SetVideoMode(1280,720,32,SDL_OPENGL);

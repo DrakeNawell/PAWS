@@ -5,7 +5,7 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Thu Dec 31 23:01:22 2015 Matthew LEJEUNE
-// Last update Sun Jan  3 21:47:19 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 03:42:17 2016 Matthew LEJEUNE
 //
 
 #ifndef __OBJ_GROUP__
@@ -24,7 +24,6 @@ public:
   MeshObjGroup();
   ~MeshObjGroup();
 
-  int	GetSize();
   MeshObjGroup operator=(MeshObjGroup *group);
   int n_data;
   string mat;

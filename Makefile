@@ -5,35 +5,41 @@
 ## Login   <lejeun_m@epitech.net>
 ## 
 ## Started on  Sun Jan  3 21:38:50 2016 Matthew LEJEUNE
-## Last update Sun Jan  3 22:20:42 2016 Matthew LEJEUNE
+## Last update Mon Jan  4 03:40:30 2016 Matthew LEJEUNE
 ##
 
-SRC=	src/Main.cpp \
-	src/loader/FloatVector.cpp \
-	src/loader/Material.cpp \
-	src/loader/obj/MeshObj.cpp \
-	src/loader/obj/MeshObjGroup.cpp \
-	src/loader/sdlglutils.cpp
+SRCDIR		=	src/
+SRC_LOADER_DIR	=	$(SRCDIR)loader/
+SRC_OBJ_DIR	=	$(SRC_LOADER_DIR)obj/
 
-OBJ=	$(SRC:.cpp=.o)
+SRC		=	$(SRCDIR)Main.cpp \
+				$(SRC_LOADER_DIR)FloatVector.cpp \
+				$(SRC_LOADER_DIR)Material.cpp \
+				$(SRC_LOADER_DIR)sdlglutils.cpp \
+					$(SRC_OBJ_DIR)MeshObj.cpp \
+					$(SRC_OBJ_DIR)MeshObjGroup.cpp \
 
-CFLAGS=	-Wall -Wextra -g3 -I include/
+OBJ		=	$(SRC:.cpp=.o)
 
-LDFLAGS= -lSDL -lSDLmain -lSDL_image -lGL -lGLU
+CXXFLAGS	=	-Wall -Wextra
+CXXFLAGS	+=	-g3
+CXXFLAGS	+=	-I include/
 
-CXX=	g++
+LDLIBS		= 	-lSDL -lSDLmain -lSDL_image -lGL -lGLU
 
-NAME=	loader
+CC		=	g++
 
-all:	$(NAME)
+NAME		=	loader
 
-$(NAME): $(OBJ)
-	$(CXX) $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
+all:			$(NAME)
+
+$(NAME): 		$(OBJ)
+				$(CC) -o $(NAME) $(OBJ) $(LDLIBS)
 
 clean:
-	rm -rf $(OBJ)
+				rm -rf $(OBJ)
 
-fclean: clean
-	rm -rf $(NAME)
+fclean: 		clean
+				rm -rf $(NAME)
 
-re: 	fclean all
+re: 			fclean all

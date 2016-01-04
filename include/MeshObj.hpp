@@ -5,7 +5,7 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Fri Dec 25 17:07:29 2015 Matthew LEJEUNE
-// Last update Sun Jan  3 18:53:13 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 03:44:28 2016 Matthew LEJEUNE
 //
 
 #include "Material.hpp"
@@ -28,7 +28,7 @@ public:
 
   void charger_obj(std::string n);
 
-  void charger_mtl(MeshObjGroup *g, std::string n);
+  void charger_mtl(std::string n);
 
   void draw_model(GLuint drawingMode);
 

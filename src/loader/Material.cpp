@@ -5,10 +5,10 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Sun Jan  3 21:54:20 2016 Matthew LEJEUNE
-// Last update Sun Jan  3 22:51:00 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 03:47:25 2016 Matthew LEJEUNE
 //
 
-#include "../../include/Material.hpp"
+#include "Material.hpp"
 
 using namespace std;
 

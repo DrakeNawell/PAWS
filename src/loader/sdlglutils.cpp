@@ -1,4 +1,4 @@
-#include "../../include/sdlglutils.h"
+#include "sdlglutils.h"
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <GL/glu.h>
@@ -271,7 +271,7 @@ int XPMFromImage(const char * imagefile, const char * XPMfile)
             else
                 fprintf(xpm,"X");
         }
-        for (x = image32bits->w ; x < w ; x ++)
+        for (x = image32bits->w ; x < (int)w ; x ++)
             fprintf(xpm," ");
         fprintf(xpm,"\",\n");
     }
