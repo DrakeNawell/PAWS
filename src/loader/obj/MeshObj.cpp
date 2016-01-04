@@ -5,7 +5,7 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Fri Dec 25 16:18:33 2015 Matthew LEJEUNE
-// Last update Sun Jan  3 22:58:45 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 01:16:43 2016 Matthew LEJEUNE
 //
 
 #include "../../../include/sdlglutils.h"
@@ -51,17 +51,10 @@ int	nbOccur(const char *s, char c)
 
 string doubleSlash(string s)
 {
+  int	id = 0;
   string s1 = "";
   vector<string> split = splitSpace(s.substr(2));
 
-  if (nbOccur(split[0].c_str(), '/') == 1)
-    {
-      for (unsigned int i = 0; i < s.length(); i++)
-	{
-	  if (s.at(i) == ' ')
-	    s += "/1 ";
-	}
-    }
   for(unsigned int i = 0; i < s.size(); i++)
     {
       if(i < s.size() - 1 && s[i] == '/' && s[i + 1] == '/')
@@ -203,6 +196,7 @@ void MeshObj::charger_obj(string nom)
             {
 	      if (!group)
 		group = new MeshObjGroup();
+	      int ndata = nbOccur(splitSpace(ligne.substr(2))[0].c_str(), '/') + 1;
 	      ligne=doubleSlash(ligne);
 	      ligne=remplacerSlash(ligne);
 
@@ -210,19 +204,16 @@ void MeshObj::charger_obj(string nom)
 	      
 	      int ndonnees;
 	      if (!isNormal || !isTexture)
-		{
-		  ndonnees = (int)termes.size() / 2;
-		  printf("ndonnees : %d\n", ndonnees);
-		}
+		ndonnees = (int)termes.size() / 2;
 	      else
 		ndonnees = (int)termes.size() / 3;
 	      for(int i = 0; i < (ndonnees==3?3:4); i++)
                 {
-		  group->iv.push_back(strtol(termes[i*3].c_str(),NULL,10)-1);
+		  group->iv.push_back(strtol(termes[i*ndata].c_str(),NULL,10)-1);
 		  if (isTexture)
-		    group->it.push_back(strtol(termes[i*3+1].c_str(),NULL,10)-1);
+		    group->it.push_back(strtol(termes[i*ndata+1].c_str(),NULL,10)-1);
 		  if (isNormal)
-		    group->in.push_back(strtol(termes[i*3+2].c_str(),NULL,10)-1);
+		    group->in.push_back(strtol(termes[i*ndata+2].c_str(),NULL,10)-1);
                 }
 	      if(ndonnees==3)
                 {

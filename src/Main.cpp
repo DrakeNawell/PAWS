@@ -5,7 +5,7 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Fri Dec 25 17:21:31 2015 Matthew LEJEUNE
-// Last update Sun Jan  3 22:21:17 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 01:21:36 2016 Matthew LEJEUNE
 //
 
 #include <SDL/SDL.h>
@@ -67,13 +67,13 @@ int main(int argc,char *argv[])
 
       glLoadIdentity();
 
-      gluLookAt(0,-10,0,0,0,0,0,0,1);
+      gluLookAt(0,-30,0,0,0,0,0,0,1);
 
       glRotatef(90,1,0,0);
       glRotatef(angle, 0, 1, 0);
       glScalef(.1,.1,.1);
 
-      glTranslatef(0, -100, 0);
+      glTranslatef(0, -50, 0);
       cube->draw_model(drawingMode);
 
       glFlush();
