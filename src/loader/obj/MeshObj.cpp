@@ -5,7 +5,7 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Fri Dec 25 16:18:33 2015 Matthew LEJEUNE
-// Last update Mon Jan  4 01:16:43 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 01:30:38 2016 Matthew LEJEUNE
 //
 
 #include "../../../include/sdlglutils.h"
@@ -13,8 +13,6 @@
 #include "../../../include/MeshObjGroup.hpp"
 
 using namespace std;
-
-GLuint		drawingMode;
 
 vector<string> splitSpace(string s)
 {
@@ -154,7 +152,6 @@ void MeshObj::charger_obj(string nom)
 
   string ligne,curname="";
 
-  drawingMode = GL_QUADS;
   if(fichier)
     {
       while(getline(fichier,ligne))
@@ -237,6 +234,11 @@ void MeshObj::charger_obj(string nom)
 	    charger_mtl(group, get_directory(nom)+ligne.substr(7));
 	  else if(ligne[0]=='u')
 	    {
+	      if (group)
+		{
+		  groups.push_back(*group);
+		  group = NULL;
+		}
 	      if (!group)
 		group = new MeshObjGroup();
 	      curname=ligne.substr(7);
@@ -368,7 +370,6 @@ void MeshObj::charger_mtl(MeshObjGroup *g, string nom)
       fprintf(stderr,"Erreur lors de la lecture de %s...",nom.c_str());
       exit(EXIT_FAILURE);
     }
-  printf("Mat size : %u\n", materiaux.size());
 }
 
 void MeshObj::draw_model(GLuint drawingMode)
