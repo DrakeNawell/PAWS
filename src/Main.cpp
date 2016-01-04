@@ -5,7 +5,7 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Fri Dec 25 17:21:31 2015 Matthew LEJEUNE
-// Last update Mon Jan  4 01:37:39 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 02:44:32 2016 Matthew LEJEUNE
 //
 
 #include <SDL/SDL.h>
@@ -29,7 +29,7 @@ int main(int argc,char *argv[])
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(70,(double)1280/720,.1,2000);
+  gluPerspective(70,(double)1280/720,.1,4000);
   glEnable(GL_TEXTURE_2D);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
@@ -67,12 +67,12 @@ int main(int argc,char *argv[])
 
       glLoadIdentity();
 
-      gluLookAt(0,-70,0,0,0,0,0,0,1);
+      gluLookAt(0,-10,0,0,0,0,0,0,1);
 
       glRotatef(90,1,0,0);
       glRotatef(angle, 0, 1, 0);
-
-      glTranslatef(0, -70, 0);
+      glScalef(3, 3, 3);
+      glTranslatef(0, 0, 0);
       cube->draw_model(drawingMode);
 
       glFlush();

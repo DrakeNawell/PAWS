@@ -5,7 +5,7 @@
 // Login   <lejeun_m@epitech.net>
 // 
 // Started on  Fri Dec 25 16:18:33 2015 Matthew LEJEUNE
-// Last update Mon Jan  4 01:30:38 2016 Matthew LEJEUNE
+// Last update Mon Jan  4 02:50:41 2016 Matthew LEJEUNE
 //
 
 #include "../../../include/sdlglutils.h"
@@ -138,9 +138,12 @@ MeshObj::~MeshObj()
       free(groups[i].colours);
     }
 
-  for(unsigned int i = 0;i < (materiaux.size() - 1); i++)
-    delete materiaux[i];
-  materiaux.clear();
+  if (!materiaux.empty())
+    {
+      for(unsigned int i = 0;i < (materiaux.size() - 1); i++)
+	delete materiaux[i];
+      materiaux.clear();
+    }
 }
 
 void MeshObj::charger_obj(string nom)
@@ -231,7 +234,10 @@ void MeshObj::charger_obj(string nom)
 		}
             }
 	  else if(ligne[0]=='m')
-	    charger_mtl(group, get_directory(nom)+ligne.substr(7));
+	    {
+	      charger_mtl(group, get_directory(nom)+ligne.substr(7));
+	      printf("MTL loaded\n");
+	    }
 	  else if(ligne[0]=='u')
 	    {
 	      if (group)
@@ -355,6 +361,7 @@ void MeshObj::charger_mtl(MeshObjGroup *g, string nom)
             {
 	      string f=get_directory(nom)+ligne.substr(7);
 	      mat->texture = loadTexture(f.c_str());
+	      printf("Texture loaded : %s\nGL_BIND_NUM : %u\n", f.c_str(), mat->texture);
 	    }
 	  else if(ligne[0]=='d')
             {
@@ -368,12 +375,13 @@ void MeshObj::charger_mtl(MeshObjGroup *g, string nom)
   else
     {
       fprintf(stderr,"Erreur lors de la lecture de %s...",nom.c_str());
-      exit(EXIT_FAILURE);
     }
 }
 
 void MeshObj::draw_model(GLuint drawingMode)
 {
+  Material *mater = NULL;
+
   glEnableClientState(GL_VERTEX_ARRAY);
   if (isTexture && drawingMode == GL_QUADS)
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -382,9 +390,12 @@ void MeshObj::draw_model(GLuint drawingMode)
   glEnableClientState(GL_COLOR_ARRAY);
   for (int i = 0; i < groups.size(); i++)
     {
-      Material *mater = GetMaterialByName(groups[i].mat);
-      if (isTexture && drawingMode == GL_QUADS && mater->texture != 0)
-	glBindTexture(GL_TEXTURE_2D, mater->texture);
+      mater = GetMaterialByName(groups[i].mat);
+      if (mater)
+	{
+	  if (isTexture && drawingMode == GL_QUADS)
+	    glBindTexture(GL_TEXTURE_2D, mater->texture);
+	}
       glVertexPointer(3,GL_FLOAT,0,groups[i].vertice);
       if(isTexture)
 	glTexCoordPointer(2,GL_FLOAT,0,groups[i].textures);
